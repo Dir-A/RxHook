@@ -15,5 +15,5 @@ add_library("${PROJECT_NAME}"
 target_include_directories("${PROJECT_NAME}" INTERFACE "Detours/src")
 
 # Compiler
-target_compile_options("${PROJECT_NAME}" PRIVATE /nologo /W4 /WX /we4777 /we4800 /Zi /Gy /Gm- /Zl /DWIN32_LEAN_AND_MEAN)
+target_compile_options("${PROJECT_NAME}" PRIVATE /nologo /WX /we4777 /we4800 /Zi /Gy /Gm- /Zl /DWIN32_LEAN_AND_MEAN)
 
