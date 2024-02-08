@@ -13,7 +13,5 @@ add_library("${PROJECT_NAME}"
     "Detours/src/modules.cpp"
 )
 target_include_directories("${PROJECT_NAME}" INTERFACE "Detours/src")
-
-# Compiler
 target_compile_options("${PROJECT_NAME}" PRIVATE /nologo /WX /we4777 /we4800 /Zi /Gy /Gm- /Zl /DWIN32_LEAN_AND_MEAN)
 

@@ -1,9 +1,8 @@
 ﻿# Project Name
 project(TargetEXE)
 
-# Cpp Standard
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 # Current Project
 add_executable("${PROJECT_NAME}" "main.cpp")
+target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_23)
+target_compile_definitions("${PROJECT_NAME}" PRIVATE UNICODE _UNICODE)
+target_compile_options("${PROJECT_NAME}" PRIVATE "$<$<CXX_COMPILER_ID:MSVC>:/source-charset:utf-8>")
