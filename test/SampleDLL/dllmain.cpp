@@ -15,7 +15,7 @@ INT __stdcall MessageBoxW_Hook(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UIN
 static void StartHook(HMODULE hDllBase)
 {
 	::MessageBoxW(NULL, L"Inject DLL!", NULL, NULL);
-	Rut::RxHook::Detours::AttrachDirectly(&sg_fnMessageBoxW, MessageBoxW_Hook);
+	Rut::RxHook::Detours::AttachDirectly(&sg_fnMessageBoxW, MessageBoxW_Hook);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)

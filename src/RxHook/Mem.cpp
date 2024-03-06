@@ -27,11 +27,20 @@ namespace Rut::RxHook
 		return ::VirtualProtect(pAddress, nSize, uiAccess, &old) ? (bool)(pOldAccess ? (*pOldAccess = old) : (true)) : false;
 	}
 
+	void* SysMemAlloc(size_t nSize, uint32_t uiAccess)
+	{
+		return SysMemAlloc(nullptr, nSize, MEM_COMMIT, uiAccess);
+	}
+
 	void* SysMemAlloc(void* pAddress, size_t nSize, uint32_t uiType, uint32_t uiAccess)
 	{
 		return ::VirtualAlloc(pAddress, nSize, uiType, uiAccess);
 	}
 
+	bool SysMemFree(void* pAddress)
+	{
+		return ::VirtualFree(pAddress, 0, MEM_RELEASE);
+	}
 
 
 	void SysMemRead(void* pAddress, void* pBuffer, size_t nSize, const wchar_t* wpErrorMsg, bool isExit)

@@ -9,18 +9,27 @@ namespace Rut::RxHook
 	class Transfer
 	{
 	public:
-		static void Set(uint8_t ucAsmCode, void* pRawAddress, void* pNewAddress, size_t szOrgCode);
-		static void Set(void* pRawAddress, void* pNewAddress, size_t szOrgCode);
+		static void Set(void* pFunc, void* pDest, size_t nCoverSize, uint8_t ucAsmCode);
+		static void Set(void* pFunc, void* pDest, size_t nCoverSize);
 	};
 
 	class Detours
 	{
 	public:
 		static void Begin();
-		static void Attach(void* ppRawFunc, void* pNewFunc);
-		static void Detach(void* ppRawFunc, void* pNewFunc);
+		static void Attach(void* ppFunc, void* pDetour);
+		static void Detach(void* pFunc, void* pDetour);
 		static void Commit();
-		static void AttrachDirectly(void* ppRawFunc, void* pNewFunc);
+		static void AttachDirectly(void* ppFunc, void* pDetour);
+		static void DetachDirectly(void* ppFunc, void* pDetour);
+	};
+
+	class Trampoline
+	{
+	public:
+		static bool Free(void* ppFunc);
+		static void* Alloc(void* pFunc, size_t nCopySize);
+		static void Set(void* ppFunc, size_t nCoverSize, void* pDetour);
 	};
 
 

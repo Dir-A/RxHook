@@ -8,7 +8,9 @@ namespace Rut::RxHook
 	bool SysMemWrite(void* pAddress, void* pBuffer, size_t nSize);
 	bool SysMemFill(void* pAddress, uint8_t ucValue, size_t nSize);
 	bool SysMemAccess(void* pAddress, size_t nSize, uint32_t uiAccess, uint32_t* pOldAccess);
+	void* SysMemAlloc(size_t nSize, uint32_t uiAccess);
 	void* SysMemAlloc(void* pAddress, size_t nSize, uint32_t uiType, uint32_t uiAccess);
+	bool SysMemFree(void* pAddress);
 
 	void SysMemRead(void* pAddress, void* pBuffer, size_t nSize, const wchar_t* wpErrorMsg, bool isExit);
 	void SysMemWrite(void* pAddress, void* pBuffer, size_t nSize, const wchar_t* wpErrorMsg, bool isExit);

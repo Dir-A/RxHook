@@ -23,7 +23,7 @@ namespace Rut::RxHook
 	{
 		sg_dwCharSetA = uiCharSet;
 		sg_lpFontNameA = cpFontName;
-		Detours::AttrachDirectly(&sg_fnCreateFontA, CreateFontA_Hook);
+		Detours::AttachDirectly(&sg_fnCreateFontA, CreateFontA_Hook);
 	}
 	//*********END Hook CreateFontA*********
 
@@ -43,7 +43,7 @@ namespace Rut::RxHook
 	{
 		sg_dwCharSetW = uiCharSet;
 		sg_lpFontNameW = cpFontName;
-		Detours::AttrachDirectly(&sg_fnCreateFontW, CreateFontW_Hook);
+		Detours::AttachDirectly(&sg_fnCreateFontW, CreateFontW_Hook);
 	}
 	//*********END Hook CreateFontW*********
 
@@ -63,7 +63,7 @@ namespace Rut::RxHook
 	{
 		sg_dwCharSetIndirectA = uiCharSet;
 		sg_lpFontNameIndirectA = cpFontName;
-		Detours::AttrachDirectly(&sg_fnCreateFontIndirectA, CreateFontIndirectA_Hook);
+		Detours::AttachDirectly(&sg_fnCreateFontIndirectA, CreateFontIndirectA_Hook);
 	}
 	//*********END Hook CreateFontIndirectA*********
 
@@ -83,7 +83,7 @@ namespace Rut::RxHook
 	{
 		sg_dwCharSetIndirectW = uiCharSet;
 		sg_lpFontNameIndirectW = cpFontName;
-		Detours::AttrachDirectly(&sg_fnCreateFontIndirectW, CreateFontIndirectW_Hook);
+		Detours::AttachDirectly(&sg_fnCreateFontIndirectW, CreateFontIndirectW_Hook);
 	}
 	//*********END Hook CreateFontIndirectW*********
 
@@ -97,7 +97,7 @@ namespace Rut::RxHook
 		if (!::lstrcmpA(lpWindowName, sg_lpRawTitle))
 		{
 			lpWindowName = sg_lpNewTitle;
-			Detours::AttrachDirectly(&sg_fnCreateWindowExA, &CreateWindowExA_Hook);
+			Detours::AttachDirectly(&sg_fnCreateWindowExA, &CreateWindowExA_Hook);
 		}
 
 		return sg_fnCreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
@@ -107,7 +107,7 @@ namespace Rut::RxHook
 	{
 		sg_lpNewTitle = cpPatchTitle;
 		sg_lpRawTitle = cpRawTitle;
-		Detours::AttrachDirectly(&sg_fnCreateWindowExA, CreateWindowExA_Hook);
+		Detours::AttachDirectly(&sg_fnCreateWindowExA, CreateWindowExA_Hook);
 	}
 	//*********END Hook CreateWindowExA*********
 }
