@@ -9,8 +9,8 @@ namespace Rut::RxHook
 	class Transfer
 	{
 	public:
-		static void Set(void* pFunc, void* pDest, size_t nCoverSize, uint8_t ucAsmCode);
-		static void Set(void* pFunc, void* pDest, size_t nCoverSize);
+		static void CtrlFlow(void* pFunc, void* pDest, size_t nCoverSize, uint8_t ucAsmCode);
+		static void AutoReturn(void* pFunc, void* pDest, size_t nCoverSize);
 	};
 
 	class Detours
@@ -26,10 +26,12 @@ namespace Rut::RxHook
 
 	class Trampoline
 	{
-	public:
+	private:
 		static bool Free(void* ppFunc);
 		static void* Alloc(void* pFunc, size_t nCopySize);
-		static void Set(void* ppFunc, size_t nCoverSize, void* pDetour);
+
+	public:
+		static void Attach(void* ppFunc, size_t nCoverSize, void* pDetour);
 	};
 
 

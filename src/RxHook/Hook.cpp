@@ -8,7 +8,7 @@
 
 namespace Rut::RxHook
 {
-	void Transfer::Set(void* pFunc, void* pDest, size_t nCoverSize, uint8_t ucAsmCode)
+	void Transfer::CtrlFlow(void* pFunc, void* pDest, size_t nCoverSize, uint8_t ucAsmCode)
 	{
 		SysMemAccess(pFunc, nCoverSize, PAGE_EXECUTE_READWRITE, nullptr, L"Transfer::Set Failed!", true);
 		*(uint8_t*)((uint8_t*)pFunc + 0) = ucAsmCode;
@@ -16,7 +16,7 @@ namespace Rut::RxHook
 		(nCoverSize > 0x5) ? (void)memset((uint8_t*)pFunc + 0x5, 0x90, nCoverSize - 0x5) : (void)nullptr;
 	}
 
-	void Transfer::Set(void* pFunc, void* pDest, size_t nCoverSize)
+	void Transfer::AutoReturn(void* pFunc, void* pDest, size_t nCoverSize)
 	{
 		size_t rva = 0;
 		uint8_t raw_jmp_asm[] = { 0xE9,0x00,0x00,0x00,0x00 };
@@ -100,19 +100,19 @@ namespace Rut::RxHook
 		{
 			if (memcpy(tpl_func_buffer, pFunc, copy_src_func_asm_size))
 			{
-				Transfer::Set((uint8_t*)tpl_func_buffer + copy_src_func_asm_size, (uint8_t*)pFunc + copy_src_func_asm_size, 5, 0xE9);
+				Transfer::CtrlFlow((uint8_t*)tpl_func_buffer + copy_src_func_asm_size, (uint8_t*)pFunc + copy_src_func_asm_size, 5, 0xE9);
 				return tpl_func_buffer;
 			}
 		}
 		return nullptr;
 	}
 
-	void Trampoline::Set(void* ppFunc, size_t nCoverSize, void* pDetour)
+	void Trampoline::Attach(void* ppFunc, size_t nCoverSize, void* pDetour)
 	{
 		void** fn_org_pp = (void**)ppFunc;
 		void* fn_org = *fn_org_pp;
 		*fn_org_pp = Trampoline::Alloc(fn_org, nCoverSize);
-		Transfer::Set(fn_org, pDetour, nCoverSize, 0xE9);
+		Transfer::CtrlFlow(fn_org, pDetour, nCoverSize, 0xE9);
 	}
 
 
